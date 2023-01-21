@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace BasicAPI.Controllers;
+namespace BasicAPI.Controllers.v1;
 
 [Route("api/v1/[controller]")]
 [ApiController]
