@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace BasicAPI.Controllers;
@@ -16,9 +17,10 @@ public class UsersController : ControllerBase
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
+    [Authorize]
     public string Get(int id)
     {
-        return "value";
+        return $"value #{id}";
     }
 
     // POST api/<UsersController>
