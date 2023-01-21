@@ -14,7 +14,7 @@ public class AuthenticationController : ControllerBase
     private readonly IConfiguration _config;
 
     public record AuthenticationData(string? UserName, string? Password);
-    public record UserData(int UserId, string UserName);
+    public record UserData(int UserId, string UserName, string Title, string EmployeeId);
 
     public AuthenticationController(IConfiguration config)
     {
@@ -48,6 +48,9 @@ public class AuthenticationController : ControllerBase
         List<Claim> claims = new();
         claims.Add(new(JwtRegisteredClaimNames.Sub, user.UserId.ToString()));
         claims.Add(new(JwtRegisteredClaimNames.UniqueName, user.UserName));
+        claims.Add(new("title", user.Title));
+        claims.Add(new("employeeId", user.EmployeeId));
+
 
 
         var token = new JwtSecurityToken(
@@ -69,12 +72,12 @@ public class AuthenticationController : ControllerBase
 
         if(CompareValues(data.UserName, "FirstUN") && CompareValues(data.Password, "Test.123"))
         {
-            return new UserData(1, data.UserName!);
+            return new UserData(1, data.UserName!, "CEO", "E001");
         }
 
         if (CompareValues(data.UserName, "SecondUN") && CompareValues(data.Password, "Test.123"))
         {
-            return new UserData(2, data.UserName!);
+            return new UserData(2, data.UserName!, "HOP", "E007");
         }
 
         return null;
