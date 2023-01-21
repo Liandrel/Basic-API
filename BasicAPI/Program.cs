@@ -11,15 +11,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization(opts =>
-{
-    AuthServices.AddPoliciesOptions(opts);
-});
+builder.Services.AddAuthorization(opts => AuthServices.AddPoliciesOptions(opts));
 builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(opts =>
-    {
-        AuthServices.AddJwtBearerOptions(builder, opts);
-    });
+    .AddJwtBearer(opts => AuthServices.AddJwtBearerOptions(builder, opts));
+builder.Services.AddApiVersioning(opts =>
+{
+    opts.AssumeDefaultVersionWhenUnspecified = true;
+    opts.DefaultApiVersion = new(1, 0);
+    opts.ReportApiVersions= true;
+});    
 
 
 

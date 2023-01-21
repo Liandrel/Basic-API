@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace BasicAPI.Controllers;
+namespace BasicAPI.Controllers.v2;
 
-[Route("api/[controller]")]
+[Route("api/v2/[controller]")]
 [ApiController]
+[ApiVersion("2.0")]
 public class UsersController : ControllerBase
 {
     // GET: api/<UsersController>
     [HttpGet]
     public IEnumerable<string> Get()
     {
-        return new string[] { "value1", "value2" };
+        return new string[] { "version 2: value1", "version 2: value2" };
     }
 
     // GET api/<UsersController>/5
