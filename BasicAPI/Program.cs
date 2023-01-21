@@ -10,16 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opts => SwaggerServices.AddSwaggerGenOptions(opts));
 builder.Services.AddAuthorization(opts => AuthServices.AddPoliciesOptions(opts));
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(opts => AuthServices.AddJwtBearerOptions(builder, opts));
-builder.Services.AddApiVersioning(opts =>
-{
-    opts.AssumeDefaultVersionWhenUnspecified = true;
-    opts.DefaultApiVersion = new(1, 0);
-    opts.ReportApiVersions= true;
-});    
+builder.Services.AddApiVersioning(opts => VersionServices.AddVersionOptions(opts));
+builder.Services.AddVersionedApiExplorer(opts => VersionServices.AddVersionedApiExplorerOptions(opts));
 
 
 
@@ -29,7 +25,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(opts => SwaggerServices.AddSwaggeroptions(opts));
 }
 
 app.UseHttpsRedirection();
