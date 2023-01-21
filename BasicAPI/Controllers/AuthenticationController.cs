@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -23,6 +24,7 @@ public class AuthenticationController : ControllerBase
 
     // api/Authentication/token
     [HttpPost("token")]
+    [AllowAnonymous]
     public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
     {
         var user = ValidateCredentials(data);
@@ -77,7 +79,7 @@ public class AuthenticationController : ControllerBase
 
         if (CompareValues(data.UserName, "SecondUN") && CompareValues(data.Password, "Test.123"))
         {
-            return new UserData(2, data.UserName!, "HOP", "E007");
+            return new UserData(2, data.UserName!, "HOP", "E005");
         }
 
         return null;

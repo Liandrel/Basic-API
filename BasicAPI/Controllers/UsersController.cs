@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BasicAPI.Constans;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -17,7 +18,8 @@ public class UsersController : ControllerBase
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
-    [Authorize]
+    [Authorize(Policy = PolicyConstans.MustHaveEmployeeId)]
+    [Authorize(Policy = PolicyConstans.MustBeAVeteranEmployee)]
     public string Get(int id)
     {
         return $"value #{id}";
